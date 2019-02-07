@@ -13,9 +13,15 @@
 " When started as "evim", evim.vim will already have done these settings.
 "
 "
+" vim-plug automatic installation
+" https://github.com/junegunn/vim-plug
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif	
 
 
-call pathogen#infect()
 syntax on
 filetype plugin indent on
 filetype plugin on
@@ -130,6 +136,7 @@ packadd matchit
 call plug#begin('~/.vim/plugged')
 
 Plug 'lervag/vimtex'
+Plug 'altercation/vim-colors-solarized', {'dir': '~/.vim/colors'}
 
 call plug#end()
 
@@ -164,3 +171,6 @@ function! SummarizeTabs()
     echohl None
   endtry
 endfunction
+
+set nocompatible
+set viminfo=%,<800,'10,/50,:100,h,f0,n~/.vim/cache/.viminfo
